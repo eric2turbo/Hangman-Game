@@ -38,27 +38,28 @@ document.onkeyup = function(event) {
 	var guess = userGuess.toLowerCase();
 
 	// first game
-	if (current.length === 0 || current === ["Y", "O", "U", "W", "I", "N"]) {
+	if (current.length === 0) {
 		wd = bank[Math.floor(Math.random() * bank.length)];
 		guesses = 9;
 		current = starting(wd);
+		misses = [];
 		} 
 		else if (alphabet.indexOf(guess)>-1) {
 
 		//incorrect guess
-		if (wd.indexOf(guess) === -1) {
+		if (wd.indexOf(guess) < 0) {
 			guesses--;
 			// out of guesses.  reinitialize
 			if (guesses === 0) {
 				wd = bank[Math.floor(Math.random() * bank.length)];
-				guesses = wd.length + 5;
+				guesses = 9;
 				current = starting(wd);
 				misses = [];
 				//guesses left
 			} else {
 				misses.push(guess);
 			}
-		//correct guess
+		//correct guess.  replace '_' with letter
 		} else {
 			for (var i = 0; i < current.length; i++) {
 				if (guess === wd[i]) {
@@ -67,15 +68,17 @@ document.onkeyup = function(event) {
 			}
 		//check for win
 			if (current.indexOf("_") === -1) {
-				current = ["Y", "O", "U", "W", "I", "N"];
+				console.log("you win with " + makeString(current));
 				wins++;
+				current = [];
 			}
 		}
 	}
 
-	var html = "<p>Current Word:" + makeString(current) + "</p><br>"+
-	"<p>Guesses Left:" + guesses + " </p><br>"+
-	"<p>Letters Used:" + makeString(misses) + "</p>";
+	var html = "<p>Current Word: " + makeString(current) + "</p><br>"+
+	"<p>Guesses Left: " + guesses + " </p><br>"+
+	"<p>Letters Used: " + makeString(misses) + "</p><br>"+
+	"<p>Wins: " + wins + "</p>";
 
 	document.querySelector("#game").innerHTML = html;
 
