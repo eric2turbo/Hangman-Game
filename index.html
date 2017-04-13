@@ -9,18 +9,36 @@
 
 
 <body>
+	<div class="container">
 
-	<h1> Hangman Game </h1>
-	<h3> Press any key to play!</h3>
+		<div class="panel panel-success">
+	  		<div class="panel-body"><h1 class="text-center">Hangman Game</h1></div>
+	  		<div class="panel-footer">
+	  			<p class="text-center">Press any key to play!</p>
+	  		</div>
+		</div>
+		
+		<div class="panel panel-primary">
+			<div class="panel-heading">Current Word</div>
+	  		<div class="panel-body" id="word"></div>
+		</div>
+
+		<div class="panel panel-info">
+			<div class="panel-heading">Letters Used</div>
+	  		<div class="panel-body" id="used"></div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-body" id="scores">
+			Guesses Left: 0<br>
+			Wins:0
+			</div>
+	
+		</div>
 
 
-	<div id="game">
-	<p>Current Word:</p>
-	<p>Guesses Left:</p>
-	<p>Letters Used:</p>
-	<p>Wins:</p>
+		
 	</div>
-
 <script src="assets/javascript/game.js">
 	
 </script>

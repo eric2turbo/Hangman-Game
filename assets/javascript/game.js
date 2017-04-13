@@ -37,7 +37,7 @@ document.onkeyup = function(event) {
 	var userGuess = event.key;
 	var guess = userGuess.toLowerCase();
 
-	// first game
+	// initialize game
 	if (current.length === 0) {
 		wd = bank[Math.floor(Math.random() * bank.length)];
 		guesses = 9;
@@ -50,7 +50,7 @@ document.onkeyup = function(event) {
 		if (wd.indexOf(guess) < 0) {
 			guesses--;
 			// out of guesses.  reinitialize
-			if (guesses === 0) {
+			if (guesses <= 0) {
 				wd = bank[Math.floor(Math.random() * bank.length)];
 				guesses = 9;
 				current = starting(wd);
@@ -74,13 +74,15 @@ document.onkeyup = function(event) {
 			}
 		}
 	}
+	//Update state of the game in browser
+	var htmlword = makeString(current);
+	var htmlmisses = makeString(misses);
+	var htmlscores = "<p>Guesses Left: " + guesses + "</p>"+
+			"<p>Wins: " + wins + " </p>";
 
-	var html = "<p>Current Word: " + makeString(current) + "</p><br>"+
-	"<p>Guesses Left: " + guesses + " </p><br>"+
-	"<p>Letters Used: " + makeString(misses) + "</p><br>"+
-	"<p>Wins: " + wins + "</p>";
-
-	document.querySelector("#game").innerHTML = html;
+	document.querySelector("#word").innerHTML = htmlword;
+	document.querySelector("#used").innerHTML = htmlmisses;
+	document.querySelector("#scores").innerHTML = htmlscores;
 
 	
 };
