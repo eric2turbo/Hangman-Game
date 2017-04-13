@@ -13,6 +13,7 @@ var wd = "";
 var guesses = 0;
 var current = [];
 var misses = [];
+var newgame = true;
 
 function starting(x) {
 	var blanks = [];
@@ -38,7 +39,8 @@ document.onkeyup = function(event) {
 	var guess = userGuess.toLowerCase();
 
 	// initialize game
-	if (current.length === 0) {
+	if (newgame === true) {
+		newgame = false;
 		wd = bank[Math.floor(Math.random() * bank.length)];
 		guesses = 9;
 		current = starting(wd);
@@ -51,10 +53,7 @@ document.onkeyup = function(event) {
 			guesses--;
 			// out of guesses.  reinitialize
 			if (guesses <= 0) {
-				wd = bank[Math.floor(Math.random() * bank.length)];
-				guesses = 9;
-				current = starting(wd);
-				misses = [];
+				newgame = true;
 				//guesses left
 			} else {
 				misses.push(guess);
@@ -70,7 +69,7 @@ document.onkeyup = function(event) {
 			if (current.indexOf("_") === -1) {
 				console.log("you win with " + makeString(current));
 				wins++;
-				current = [];
+				newgame = true;
 			}
 		}
 	}
